@@ -30,7 +30,7 @@ window.TINY_PERF = (() => {
 </script>
 
     <meta charset="UTF-8">
-    <title>Sự thức giấc của Tiny - Ngày 20/10</title>
+    <title>Ngày 20/10</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
     
     <style>
@@ -7007,7 +7007,7 @@ html.tiny-pc-beauty-v12 #uiverse-starfield #stars3 {
         </div>
       </div>
       <p id="share-flight-status" class="share-flight-status" aria-live="polite"></p>
-      <a id="share-copy-manual" href="https://20-10-vuive.kazvndc-edu.workers.dev/" target="_blank" rel="noopener noreferrer">https://20-10-vuive.kazvndc-edu.workers.dev/</a>
+      <a id="share-copy-manual" href="#" target="_blank" rel="noopener noreferrer"></a>
     </section>
 
 
@@ -9392,7 +9392,7 @@ const SPRITES = [taoSprite(1.02, 140), taoSprite(.96, 136), taoSprite(1.08, 145)
 
 
         // ---- FINAL SHARE FLIGHT: dedicated scene after the wink/question scene ----
-        const SHARE_FLIGHT_URL = 'https://20-10-vuive.kazvndc-edu.workers.dev/';
+        const SHARE_FLIGHT_URL = window.location.href;
         const shareFlightScene = document.getElementById('share-flight-scene');
         const shareFlightDevice = document.getElementById('share-flight-device');
         const shareFuelButton = document.getElementById('share-fuel-button');
@@ -9414,6 +9414,8 @@ const SPRITES = [taoSprite(1.02, 140), taoSprite(.96, 136), taoSprite(1.08, 145)
         let sharePlaneLaunched = false;
         const shareFlightStatus = document.getElementById('share-flight-status');
         const shareManualLink = document.getElementById('share-copy-manual');
+        shareManualLink.href = SHARE_FLIGHT_URL;
+        shareManualLink.textContent = SHARE_FLIGHT_URL;
         const shareCopyToast = document.createElement('div');
         shareCopyToast.className = 'tiny-copy-toast';
         shareCopyToast.setAttribute('role','status');
