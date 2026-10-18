@@ -6666,6 +6666,42 @@ html.tiny-pc-beauty-v12 #uiverse-starfield #stars3 {
 @media(max-width:520px){#cin-album-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}#cin-album-grid>button{height:245px!important}}
 </style>
 
+
+<style id="cinematic-performance-fix">
+/* Keep the cinematic look while avoiding expensive full-screen repainting. */
+#cin-film-vignette{background:radial-gradient(ellipse at center,transparent 55%,rgba(4,3,13,.18) 100%)!important;box-shadow:none!important;contain:paint!important}
+#cin-film-vignette:before{animation:none!important;opacity:0!important}
+#cin-film-vignette:after{display:none!important;animation:none!important}
+#cin-modal{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(5,3,15,.88)!important}
+.cin-tool{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 3px 10px #0003!important}
+.cin-memory-inner{will-change:transform;}
+#cin-album-grid img{content-visibility:auto;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media(max-width:700px){
+  #cin-film-vignette{display:none!important}
+  #cin-dock{gap:5px}
+  .cin-tool{padding:8px 10px;min-height:38px}
+  .cin-memory-inner{transition:transform .45s ease!important}
+}
+</style>
+<script id="cinematic-performance-visibility">
+(()=>{
+ const update=()=>{document.documentElement.classList.toggle('cin-page-hidden',document.hidden)};
+ document.addEventListener('visibilitychange',update,{passive:true});
+ update();
+})();
+</script>
+<style>#cin-page-hidden{}</style>
+
+
+<style id="keep-original-effects-only">
+#cin-film-vignette{display:none!important}
+#cin-photo-sparks,.cin-extra-particles,.cin-light-leak,.cin-film-grain{display:none!important;animation:none!important}
+.cin-photo-memory:hover .cin-memory-photo{transform:none!important;filter:none!important}
+.cin-memory-photo{transition:none!important}
+.cin-photo-front:before{display:none!important}
+</style>
+
 </head>
 <body>
 <!-- Ba bộ trang trí lời chúc; chỉ hiện khi câu tương ứng xuất hiện. -->
@@ -11084,7 +11120,7 @@ if(window.TINY_PERF && !window.TINY_PERF.mobile){
 @media(max-width:560px){#cin-dock{left:8px;right:8px;bottom:max(9px,env(safe-area-inset-bottom));justify-content:center;gap:6px}.cin-tool{padding:9px 10px;min-height:39px;font-size:11px;gap:5px}.cin-tool .cin-word{display:none}.cin-tool .cin-wave{display:flex}#cin-modal{padding:10px}#cin-modal .cin-panel{border-radius:21px;padding:24px 18px;max-height:88dvh}.cin-album{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.cin-memory{height:165px}.cin-title{font-size:30px}}
 @media(prefers-reduced-motion:reduce){#cin-film-vignette:before,#cin-film-vignette:after,.cin-wave.playing i{animation:none!important}.cin-memory-inner,#cin-modal{transition:none!important}}
 </style>
-<div id="cin-film-vignette" aria-hidden="true"></div>
+
 <nav id="cin-dock" aria-label="Công cụ trải nghiệm 20/10">
  <button class="cin-tool" id="cin-open-letter" type="button" aria-label="Mở thiệp bí mật">✉ <span class="cin-word">Thiệp bí mật</span></button>
  <button class="cin-tool" id="cin-open-album" type="button" aria-label="Mở album kỷ niệm">▧ <span class="cin-word">Album 3D</span></button>
@@ -11166,7 +11202,7 @@ if(window.TINY_PERF && !window.TINY_PERF.mobile){
    front.style.cssText='position:absolute;inset:0;display:block;overflow:hidden;border-radius:16px;border:1px solid #ffffff35;padding:0!important;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#24152b!important;';
    const img=document.createElement('img');
    img.className='cin-memory-photo'; img.src=card.image; img.alt=card.alt;
-   img.loading='eager'; img.decoding='async';
+   img.loading='lazy'; img.decoding='async';
    img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:1;';
    const shade=document.createElement('span');
    shade.style.cssText='position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(12,5,15,.94));pointer-events:none;';
